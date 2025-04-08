@@ -4,9 +4,9 @@ import type { AirTableFieldConfig } from '../config/AirTableFieldConfig'
 import type { ITableFieldConfig } from '../interface/decorators/ITableFieldConfig'
 import type { IJson } from '../interface/IJson'
 import type { ITree } from '../interface/ITree'
-
 import type { ITreeProps } from '../interface/props/ITreeProps'
 import type { AirAny, AirTableInstance, ClassConstructor } from '../type/AirType'
+
 import { Setting } from '@element-plus/icons-vue'
 import { ElCheckTag, ElDropdown } from 'element-plus'
 import { computed, nextTick, ref, watch } from 'vue'
@@ -279,6 +279,14 @@ const props = defineProps({
   stripe: {
     type: Boolean,
     default: AirConfig.tableStripe,
+  },
+
+  /**
+   * # 是否显示表格边框线
+   */
+  border: {
+    type: Boolean,
+    default: AirConfig.tableBorder,
   },
 
   /**
@@ -882,6 +890,7 @@ init()
       v-if="allFieldList"
       :id="tableId"
       ref="airTableRef"
+      :border="border"
       :data="dataList"
       :default-expand-all="defaultExpandAll"
       :lazy="lazy"

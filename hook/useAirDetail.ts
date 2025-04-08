@@ -4,7 +4,7 @@ import type { AirEntity } from '../base/AirEntity'
 import type { IUseDetailOption } from '../interface/hooks/IUseDetailOption'
 import type { IUseDetailResult } from '../interface/hooks/IUseDetailResult'
 import type { IJson } from '../interface/IJson'
-import type { ClassConstructor } from '../type/AirType'
+import type { ServiceConstructor } from '../type/AirType'
 import { provide, ref } from 'vue'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirI18n } from '../helper/AirI18n'
@@ -12,15 +12,13 @@ import { AirI18n } from '../helper/AirI18n'
 /**
  * # 引入详情的`Hook`
  * @param props `defineProps` 的返回值
- * @param entityClass 详情使用的实体类
  * @param serviceClass 详情使用的 `Service`
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
 export function useAirDetail<E extends AirEntity, S extends AirAbstractEntityService<E>>(
   props: IJson,
-  entityClass: ClassConstructor<E>,
-  serviceClass: ClassConstructor<S>,
+  serviceClass: ServiceConstructor<E, S>,
   option: IUseDetailOption<E> = {},
 ): IUseDetailResult<E, S> {
   /**
@@ -37,7 +35,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * ### 表单对象
    */
-  const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(entityClass))
+  const formData: Ref<E> = ref(props.param ? props.param.copy() : AirClassTransformer.newInstance(service.entityClass))
 
   /**
    * ### 显示的对话框标题
@@ -60,7 +58,7 @@ export function useAirDetail<E extends AirEntity, S extends AirAbstractEntitySer
     }
   }
 
-  provide('entityClass', entityClass)
+  provide('entityClass', service.entityClass)
   provide('formData', formData)
 
   getDetail()

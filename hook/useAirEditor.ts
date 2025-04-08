@@ -5,7 +5,7 @@ import type { IUseEditorOption } from '../interface/hooks/IUseEditorOption'
 import type { IUseEditorResult } from '../interface/hooks/IUseEditorResult'
 import type { IJson } from '../interface/IJson'
 import type { IValidateRule } from '../interface/IValidateRule'
-import type { AirFormInstance, ClassConstructor } from '../type/AirType'
+import type { AirFormInstance, ServiceConstructor } from '../type/AirType'
 import { computed, ref, watch } from 'vue'
 import { AirConfig } from '../config/AirConfig'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -15,21 +15,19 @@ import { useAirDetail } from './useAirDetail'
 /**
  * # 引入`Editor`的`Hook`
  * @param props `defineProps`的返回值
- * @param entityClass `Editor`使用的实体类
  * @param serviceClass `Editor`使用的`Service`
  * @param option `可选` 更多的配置
  * @author Hamm.cn
  */
 export function useAirEditor<E extends AirEntity, S extends AirAbstractEntityService<E>>(
   props: IJson,
-  entityClass: ClassConstructor<E>,
-  serviceClass: ClassConstructor<S>,
+  serviceClass: ServiceConstructor<E, S>,
   option: IUseEditorOption<E> = {},
 ): IUseEditorResult<E, S> {
   /**
    * ### 详情`Hook`返回对象
    */
-  const result = useAirDetail(props, entityClass, serviceClass, option)
+  const result = useAirDetail(props, serviceClass, option)
 
   /**
    * ### 对话框显示的标题
@@ -50,7 +48,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
    * ### 表单提交事件
    */
   async function onSubmit() {
-    let postData = AirClassTransformer.copy(result.formData.value, entityClass)
+    let postData = AirClassTransformer.copy(result.formData.value, result.service.entityClass)
     if (option.beforeSubmit) {
       const result = option.beforeSubmit(postData)
       if (result === null) {
@@ -78,7 +76,7 @@ export function useAirEditor<E extends AirEntity, S extends AirAbstractEntitySer
     catch (e: unknown) {
       if ((e as IJson).code === AirConfig.continueCode) {
         if (option.successAndContinue) {
-          option.successAndContinue(AirClassTransformer.parse((e as IJson).data, entityClass))
+          option.successAndContinue(AirClassTransformer.parse((e as IJson).data, result.service.entityClass))
         }
       }
     }

@@ -1,6 +1,7 @@
 import type { ElForm, ElTable, ElTree } from 'element-plus'
-
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
 import type { AirColor } from '../enum/AirColor'
 
 /**
@@ -133,4 +134,11 @@ export type AirIconType =
  */
 export interface ClassConstructor<T = AirAny> {
   new(...args: any[]): T
+}
+
+/**
+ * ### 服务构造器类型
+ */
+export type ServiceConstructor<E extends AirEntity, S extends AirAbstractEntityService<E>> = new () => S & {
+  entityClass: new () => E
 }

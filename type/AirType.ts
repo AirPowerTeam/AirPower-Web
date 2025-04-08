@@ -1,7 +1,7 @@
-import type { AirAbstractEntityService } from '@airpower/base/AirAbstractEntityService'
-import type { AirEntity } from '@airpower/base/AirEntity'
 import type { ElForm, ElTable, ElTree } from 'element-plus'
 import type Node from 'element-plus/es/components/tree/src/model/node'
+import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
+import type { AirEntity } from '../base/AirEntity'
 import type { AirColor } from '../enum/AirColor'
 
 /**

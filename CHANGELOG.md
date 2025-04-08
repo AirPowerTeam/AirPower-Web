@@ -1,8 +1,15 @@
 <p align="center">
-  <img width="300" src="./assets/img/airpower-bg.svg"/> <b>4T</b> 
+  <img width="300" src="./assets/img/airpower-bg.svg"/> <b>4T</b>
 </p>
 
 # 版本发布日志
+
+## 3.2.3
+
+### 🐞 Bug fixes:
+
+- refactor(type): 重构类型定义并优化代码
+- refactor(hook): 移除不再需要的实体类参数
 
 ## 3.2.2
 
@@ -893,7 +900,6 @@
 ### 🐞 Bug fixes:
 
 - fix(Props): 修复类型约束后代码不提示类型注释
-
 
 - style(User): 默认弹窗的宽高修改
 

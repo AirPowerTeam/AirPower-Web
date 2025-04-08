@@ -2,7 +2,6 @@ import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import type { IUseTableTreeOption } from '../interface/hooks/IUseTableTreeOption'
 import type { IUseTableTreeResult } from '../interface/hooks/IUseTableTreeResult'
 import type { ITree } from '../interface/ITree'
-import type { ClassConstructor } from '../type/AirType'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirDialog } from '../helper/AirDialog'
@@ -10,14 +9,12 @@ import { useAirTable } from './useAirTable'
 
 /**
  * # 引入表格树使用的`Hook`
- * @param entityClass 实体类
  * @param serviceClass 表格使用的`Service`类
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function useAirTableTree<E extends ITree, S extends AirAbstractEntityService<E>>(
-  entityClass: ClassConstructor<E>,
-  serviceClass: ClassConstructor<S>,
+  serviceClass: new() => S & { entityClass: new () => E },
   option: IUseTableTreeOption<E> = {},
 ): IUseTableTreeResult<E, S> {
   // 设置不分页
@@ -28,7 +25,7 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
   /**
    * ### 表格`Hook`返回对象
    */
-  const result = useAirTable(entityClass, serviceClass, option)
+  const result = useAirTable(serviceClass, option)
 
   /**
    * ### 树表格添加子项事件
@@ -40,7 +37,7 @@ export function useAirTableTree<E extends ITree, S extends AirAbstractEntityServ
       return
     }
     try {
-      let param = AirClassTransformer.newInstance(entityClass)
+      let param = AirClassTransformer.newInstance(result.service.entityClass)
       param.parentId = row.id
       if (option.beforeAddRow) {
         const result = option.beforeAddRow(param, row)

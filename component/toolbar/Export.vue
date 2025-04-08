@@ -93,18 +93,35 @@ createExportTask()
 
 <template>
   <ADialog
-    :allow-fullscreen="false" class="export-dialog" hide-footer min-height="300px" title="数据导出" width="400px"
+    :allow-fullscreen="false"
+    class="export-dialog"
+    hide-footer
+    min-height="300px"
+    title="数据导出"
+    width="400px"
     @on-cancel="cancelExport"
   >
     <div class="tips">
       <template v-if="isLoading">
-        <el-progress :duration="1" :format="() => { }" :indeterminate="true" :percentage="100" :stroke-width="10" />
+        <el-progress
+          :duration="1"
+          :format="() => { }"
+          :indeterminate="true"
+          :percentage="100"
+          :stroke-width="10"
+        />
         {{ AirI18n.get().ExportLoadingAndWaitPlease || '数据准备中,请稍后...' }}
       </template>
       <template v-else>
-        <el-result :title="AirI18n.get().ExportSuccess || '数据导出成功'" icon="success">
+        <el-result
+          :title="AirI18n.get().ExportSuccess || '数据导出成功'"
+          icon="success"
+        >
           <template #extra>
-            <el-button type="primary" @click="download">
+            <el-button
+              type="primary"
+              @click="download"
+            >
               {{ AirI18n.get().DownloadExportFile || '下载导出文件' }}
             </el-button>
           </template>

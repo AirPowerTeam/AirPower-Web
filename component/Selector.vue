@@ -147,7 +147,7 @@ const {
   onPageChanged,
   onSelected,
   onReloadData,
-} = useAirSelector(props.props, entity, service, hookOptions)
+} = useAirSelector(props.props, service, hookOptions)
 
 const entityInstance = AirClassTransformer.parse({}, props.entity)
 

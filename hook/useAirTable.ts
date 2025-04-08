@@ -2,7 +2,7 @@ import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import type { AirEntity } from '../base/AirEntity'
 import type { IUseTableOption } from '../interface/hooks/IUseTableOption'
 import type { IUseTableResult } from '../interface/hooks/IUseTableResult'
-import type { ClassConstructor } from '../type/AirType'
+import type { ServiceConstructor } from '../type/AirType'
 import { AirConfirm } from '../feedback/AirConfirm'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirDialog } from '../helper/AirDialog'
@@ -11,20 +11,18 @@ import { airTableHook } from './airTableHook'
 
 /**
  * # 引入表格使用的`Hook`
- * @param entityClass 实体类
  * @param serviceClass 表格使用的`Service`类
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function useAirTable<E extends AirEntity, S extends AirAbstractEntityService<E>>(
-  entityClass: ClassConstructor<E>,
-  serviceClass: ClassConstructor<S>,
+  serviceClass: ServiceConstructor<E, S>,
   option: IUseTableOption<E> = {},
 ): IUseTableResult<E, S> {
   /**
    * ### 表格`Hook`返回对象
    */
-  const result = airTableHook(entityClass, serviceClass, option)
+  const result = airTableHook(serviceClass, option)
 
   /**
    * ### 表格行编辑事件

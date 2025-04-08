@@ -1,10 +1,10 @@
+import type { ServiceConstructor } from '@airpower/type/AirType'
 import type { Ref } from 'vue'
 import type { AirAbstractEntityService } from '../base/AirAbstractEntityService'
 import type { AirEntity } from '../base/AirEntity'
 import type { ITableHookOption } from '../interface/hooks/ITableHookOption'
 import type { ITableHookResult } from '../interface/hooks/ITableHookResult'
 import type { AirSort } from '../model/AirSort'
-import type { ClassConstructor } from '../type/AirType'
 import { ref } from 'vue'
 import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
@@ -15,14 +15,12 @@ import { AirResponsePage } from '../model/AirResponsePage'
 
 /**
  * # 表格基础`Hook`
- * @param entityClass 实体类
  * @param serviceClass 表格使用的 `Service` 类
  * @param option `可选` 更多配置
  * @author Hamm.cn
  */
 export function airTableHook<E extends AirEntity, S extends AirAbstractEntityService<E>>(
-  entityClass: ClassConstructor<E>,
-  serviceClass: ClassConstructor<S>,
+  serviceClass: ServiceConstructor<E, S>,
   option: ITableHookOption<E> = {},
 ): ITableHookResult<E, S> {
   /**
@@ -31,9 +29,15 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   const isLoading = ref(false)
 
   /**
+   * ### 传入的 `Service` 对象
+   */
+  const service = AirClassTransformer.newInstance(serviceClass)
+  service.loading = isLoading
+
+  /**
    * ### 请求对象
    */
-  const request = ref(new AirRequestPage<E>(entityClass)) as Ref<AirRequestPage<E>>
+  const request = ref(new AirRequestPage<E>(service.entityClass)) as Ref<AirRequestPage<E>>
 
   if (option.defaultFilter) {
     // 如果提供了默认筛选器 则使用它
@@ -53,13 +57,7 @@ export function airTableHook<E extends AirEntity, S extends AirAbstractEntitySer
   /**
    * ### 传入的实体对象
    */
-  const entity = AirClassTransformer.newInstance(entityClass)
-
-  /**
-   * ### 传入的 `Service` 对象
-   */
-  const service = AirClassTransformer.newInstance(serviceClass)
-  service.loading = isLoading
+  const entity = AirClassTransformer.newInstance(service.entityClass)
 
   /**
    * ### 选择的列表

@@ -63,13 +63,13 @@ export class AirModel {
       }
       realKey += props.alias || fieldKey
       const fieldData = json[realKey]
-      ;(instance as IJson)[fieldKey] = fieldData
+        ; (instance as IJson)[fieldKey] = fieldData
 
       const toModelFunction = getToModel(instance, fieldKey)
       if (toModelFunction !== undefined) {
         // 标记了手动转换到模型的自定义方法
         try {
-          ;(instance as IJson)[fieldKey] = toModelFunction(json as IJson)
+          ; (instance as IJson)[fieldKey] = toModelFunction(json as IJson)
         }
         catch (e) {
           console.warn('ToModel Function Error', e)
@@ -88,7 +88,7 @@ export class AirModel {
             }
           }
         }
-        ;(instance as IJson)[fieldKey] = fieldValueList
+        ; (instance as IJson)[fieldKey] = fieldValueList
         continue
       }
 
@@ -103,19 +103,19 @@ export class AirModel {
       }
       switch (FieldTypeClass.name) {
         case 'String':
-          ;(instance as IJson)[fieldKey] = fieldData.toString()
+          ; (instance as IJson)[fieldKey] = fieldData.toString()
           break
         case 'Number':
           // 强制转换为Number, 但如果不是标准的Number, 则忽略掉值
-          ;(instance as IJson)[fieldKey] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
+          ; (instance as IJson)[fieldKey] = Number.isNaN(Number.parseFloat(fieldData)) ? undefined : Number.parseFloat(fieldData)
           break
         case 'Boolean':
           // 强制转换为布尔型
-          ;(instance as IJson)[fieldKey] = !!fieldData
+          ; (instance as IJson)[fieldKey] = !!fieldData
           break
         default:
           // 是对象 需要递归转换
-          ;(instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
+          ; (instance as IJson)[fieldKey] = this.parse(new FieldTypeClass() as AirModel, fieldData)
       }
     }
 
@@ -234,7 +234,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (!fields.includes(field)) {
-        ;(this as IJson)[field] = undefined
+        ; (this as IJson)[field] = undefined
       }
     }
     return this
@@ -248,7 +248,7 @@ export class AirModel {
     const fieldList = Object.keys(this)
     for (const field of fieldList) {
       if (fields.includes(field)) {
-        ;(this as IJson)[field] = undefined
+        ; (this as IJson)[field] = undefined
       }
     }
     return this

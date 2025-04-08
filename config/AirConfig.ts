@@ -272,6 +272,11 @@ export class AirConfig {
   static tableStripe = false
 
   /**
+   * ### 是否默认显示表格边框线
+   */
+  static tableBorder = false
+
+  /**
    * ### 默认的表格数组显示分割字符
    * `@Table` 装饰器中可以单独配置 `arraySeparator`
    */

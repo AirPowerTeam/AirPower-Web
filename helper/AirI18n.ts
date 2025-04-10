@@ -1,31 +1,47 @@
+import type { ClassConstructor } from '../type/AirType'
 import { AirApi } from '../config/AirApi'
 import { AirLanguage } from '../enum/AirLanguage'
 import { AirI18nDefault } from '../model/AirI18nDefault'
 
 /**
- * # I18n工具库
- * - 1. `AirI18n.init()` 初始化语言包
- * - 2. `AirI18n.setCurrentLanguage()` 设置当前使用的语言
- * - 3. `AirI18n.get()` 获取当前使用的语言包
+ * # 语言国际化
  *
- * 初始化语言包并设置语言
+ * - #### 声明语言包实现类
  *
- * ```typescript
- * AirI18n.init(ChineseSimplified, English)
- * AirI18n.setCurrentLanguage(AirLanguage.ChineseSimplified)
- * ```
- * 实现一个继承 `AirI18n` 的抽象类，加入抽象属性作为语言包的 `Key`, 并将此方法的 `get` 方法二次封装并转换数据类型后方便使用者调用
- * ```typescript
- * export abstract class Strings extends AirI18n {
- *  // 实现一个自定义获取方法，强制转为继承的类型 `String`
- *  static get(): Strings {
- *    return AirI18n.get() as Strings
- *  }
+ * 实现一个继承 `AirI18n` 的类，加入属性作为语言包的 `Key`, 且可作为默认语言：
  *
- *  // 扩展更多的抽象属性作为语言包的 ·Key`
- *  abstract Hello_World: string
+ * ```ts
+ * export class Strings extends AirI18n {
+ *   Hello_World = '你好，世界！'
  * }
  * ```
+ * - #### 声明一种新的语言包
+ *
+ * ```ts
+ * const English: Strings = {
+ *   language: AirLanguage.English,
+ *   Hello_World = 'Hello World!'
+ * }
+ * ```
+ *
+ * - #### 添加语言包
+ *
+ * ```ts
+ * Strings.addLanguage(English)
+ * ```
+ *
+ * - #### 设置当前语言
+ *
+ * ```ts
+ * AirI18n.setCurrentLanguage(AirLanguage.ChineseSimplified)
+ * ```
+ *
+ * - #### 使用多语言
+ *
+ * ```ts
+ * console.log(Strings.get().Hello_World)
+ * ```
+ *
  * @author Hamm.cn
  */
 export class AirI18n extends AirI18nDefault {
@@ -65,19 +81,27 @@ export class AirI18n extends AirI18nDefault {
    * ### 获取翻译后的字符串
    * @returns 翻译后的字符串
    */
-  static get(): AirI18n {
-    return this.currentLanguagePackage || new AirI18n()
+  static get<T extends AirI18n>(
+    this: ClassConstructor<T>,
+  ): T {
+    return (AirI18n.currentLanguagePackage || new AirI18n()) as T
   }
 
   /**
-   * ### 初始化国际化语言包
+   * ### 添加国际化语言
    * @param languages 语言包列表
    */
-  static init(...languages: AirI18n[]): void {
-    if (languages.length > 0) {
-      this.languages = languages
-      this.currentLanguagePackage = this.languages.find(item => item.language === this.currentLanguage)
+  static addLanguage<T extends AirI18n>(this: ClassConstructor<T>, ...languages: T[]): void {
+    if (languages.length === 0) {
+      throw new Error('languages is empty')
     }
+    // 添加语言
+    languages.push(JSON.parse(JSON.stringify(new this())))
+    languages.forEach((item) => {
+      AirI18n.languages.push(item)
+    })
+    // 初始化语言包
+    AirI18n.currentLanguagePackage = AirI18n.languages.find(item => item.language === AirI18n.currentLanguage) || AirI18n.languages[0]
   }
 
   /**
@@ -86,7 +110,7 @@ export class AirI18n extends AirI18nDefault {
    */
   static setCurrentLanguage(language: AirLanguage): void {
     this.currentLanguage = language
-    this.currentLanguagePackage = this.languages.find(item => item.language === this.currentLanguage)
-    AirApi.setStorage(AirI18n.languageCacheKey, language)
+    this.currentLanguagePackage = this.languages.find(item => item.language === this.currentLanguage) || this.languages[0]
+    AirApi.setStorage(AirI18nDefault.languageCacheKey, language)
   }
 }

@@ -3,6 +3,7 @@ import type { PropType } from 'vue'
 import type { IFile } from '../interface/IFile'
 import type { IJson } from '../interface/IJson'
 import type { ClassConstructor } from '../type/AirType'
+import { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import { computed, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -107,7 +108,7 @@ const props = defineProps({
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<F>>,
-    default: AirConfig.fileEntityClass,
+    default: AirFileEntity,
   },
 
   /**

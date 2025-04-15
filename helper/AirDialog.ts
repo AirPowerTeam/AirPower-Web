@@ -1,3 +1,4 @@
+import type { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import type { App, Component } from 'vue'
 import type { AirEntity } from '../base/AirEntity'
 import type { IFile } from '../interface/IFile'
@@ -117,7 +118,7 @@ export class AirDialog {
    * @param config `可选` 上传自定义配置
    * @param customConfirm `可选` 自定义确认按钮回调方法
    */
-  static async showUpload<F extends IFile>(config?: IUploadProps, customConfirm?: () => void): Promise<F> {
+  static async showUpload<F extends IFile = AirFileEntity>(config?: IUploadProps<F>, customConfirm?: () => void): Promise<F> {
     return this.build<F>(AUpload, {
       onCustomConfirm: () => {
         if (customConfirm) {

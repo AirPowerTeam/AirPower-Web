@@ -1,9 +1,10 @@
 <script generic="F extends IFile" lang="ts" setup>
 import type { PropType } from 'vue'
 import type { IFile } from '../interface/IFile'
-
 import type { IJson } from '../interface/IJson'
+
 import type { ClassConstructor } from '../type/AirType'
+import { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import { CircleCloseFilled } from '@element-plus/icons-vue'
 import { computed, ref, watch } from 'vue'
 import { AirConfig } from '../config/AirConfig'
@@ -127,7 +128,7 @@ const props = defineProps({
    */
   entity: {
     type: Function as unknown as PropType<ClassConstructor<F>>,
-    default: AirConfig.fileEntityClass,
+    default: AirFileEntity,
   },
 })
 

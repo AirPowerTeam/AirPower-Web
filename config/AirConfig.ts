@@ -1,8 +1,6 @@
-import type { IFile } from '../interface/IFile'
 import type { ITreeProps } from '../interface/props/ITreeProps'
-import type { AirMoneyDirection, ClassConstructor } from '../type/AirType'
+import type { AirMoneyDirection } from '../type/AirType'
 import { AirDateTimeFormatter } from '../enum/AirDateTimeFormatter'
-import { AirFileEntity } from '../model/entity/AirFileEntity'
 import { AirApi } from './AirApi'
 import { AirConstant } from './AirConstant'
 
@@ -202,11 +200,6 @@ export class AirConfig {
    * `默认true` 此项仅为默认, 如在装饰器中配置, 此项将无效
    */
   static showLengthLimitTextarea = true
-
-  /**
-   * ### 默认的文件实现类
-   */
-  static fileEntityClass: ClassConstructor<IFile> = AirFileEntity
 
   /**
    * ### `ESC` 是否可关闭掉所有的弹窗

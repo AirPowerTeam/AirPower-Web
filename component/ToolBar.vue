@@ -6,7 +6,7 @@ import type { IFile } from '../interface/IFile'
 import type { IJson } from '../interface/IJson'
 import type { AirRequest } from '../model/AirRequest'
 import type { ClassConstructor } from '../type/AirType'
-
+import { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import { ElOption } from 'element-plus'
 import { computed, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
@@ -160,11 +160,10 @@ const props = defineProps({
 
   /**
    * # 导入的文件实体类
-   * 可通过 `AirConfig.fileEntityClass` 配置, 默认为 `AirFileEntity`
    */
   fileEntity: {
     type: Function as unknown as PropType<ClassConstructor<IFile>>,
-    default: AirConfig.fileEntityClass,
+    default: AirFileEntity,
   },
 
   /**
@@ -377,6 +376,10 @@ async function onImport() {
     url = `${service.baseUrl}/${AirConfig.importUrl}`
     url = getApiUrl(url)
   }
+  if (!props.fileEntity) {
+    await AirNotification.error('请为ToolBar传入fileEntity', '导入失败')
+    return
+  }
   await AirDialog.showUpload(
     {
       uploadUrl: url,
@@ -384,7 +387,7 @@ async function onImport() {
       title: props.importTitle || AirI18n.get().Import || '导入',
       uploadSuccess: AirI18n.get().ImportSuccess || '数据导入成功',
       confirmText: AirI18n.get().DownloadTemplate || '下载模板',
-      entity: AirConfig.fileEntityClass,
+      entity: props.fileEntity,
     },
     () => {
       onDownloadTemplate()

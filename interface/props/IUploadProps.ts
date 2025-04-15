@@ -1,3 +1,4 @@
+import type { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import type { ClassConstructor } from '../../type/AirType'
 import type { IFile } from '../IFile'
 import type { IJson } from '../IJson'
@@ -6,7 +7,7 @@ import type { IJson } from '../IJson'
  * # 上传配置项
  * @author Hamm.cn
  */
-export interface IUploadProps {
+export interface IUploadProps<F extends IFile = AirFileEntity> {
   /**
    * ### 对话框标题
    */
@@ -48,7 +49,7 @@ export interface IUploadProps {
    * ### 上传文件的接收实体类
    * 可通过 `AirConfig.defaultFileEntity` 配置, 默认为 `AirFileEntity`
    */
-  entity?: ClassConstructor<IFile>
+  entity?: ClassConstructor<F>
 
   /**
    * ### 自定义上传成功的回调

@@ -123,11 +123,7 @@ export class AirConfig {
   static errorMessage = '系统发生了一些错误，请稍候再试 :)'
 
   /**
-   * ### 是否自动处理常用权限
-   *
-   * 如此项配置为 `false` , 则 `EntityConfig` 中的 `permissionPrefix` 将自动失效
-   *
-   * 若此时 `EntityConfig` 没有配置其他的权限标识, 则认为不校验权限
+   * ### 是否自动处理权限前缀
    */
   static autoPermission = true
 

@@ -2,7 +2,6 @@ import type { AirEntity } from '../base/AirEntity'
 import type { ClassConstructor } from '../type/AirType'
 import { AirApi } from '../config/AirApi'
 import { AirConfig } from '../config/AirConfig'
-import { AirConstant } from '../config/AirConstant'
 import { getModelConfig } from '../decorator/Model'
 import { AirPermissionAction } from '../enum/AirPermissionAction'
 
@@ -22,50 +21,63 @@ export class AirPermission {
   private static readonly permissionKey = '_permissions'
 
   /**
-   * ### 获取指定实体类在某个场景的权限标识字符串
+   * ### 获取权限标识
+   * - 如 `action` 对应装饰的 `xxxPermission` 是空字符串，则表示无需权限，否则：
+   * - 使用 `action` 来生成权限，除非手动配置了 `action` 对应装饰的 `xxxPermission`
+   * - 如 `permissionPrefix` 装饰了空字符串，则表示无需添加前缀，否则：
+   *
+   * #### `WebConfig.autoPermissionPrefix=true`
+   *
+   * - 使用实体类名作为权限前缀，除非 `permissionPrefix` 装饰了非空字符串
+   *
+   * #### `WebConfig.autoPermissionPrefix=false`
+   *
+   * - 不自动添加前缀，除非 `permissionPrefix` 装饰了非空字符串
+   *
    * @param EntityClass 实体类
    * @param action 权限场景
+   * @returns 权限标识
    */
-  static get(EntityClass: ClassConstructor<AirEntity> | null | undefined, action: AirPermissionAction): string {
-    if (!EntityClass) {
-      return AirConstant.STRING_EMPTY
-    }
+  static get<E extends AirEntity>(EntityClass: ClassConstructor<E>, action: AirPermissionAction | string): string {
+    let permission: string | undefined
     const modelConfig = getModelConfig(new EntityClass())
-    if (!modelConfig) {
-      return AirConstant.STRING_EMPTY
+    const actionRecord: Record<AirPermissionAction, string | undefined> = {
+      [AirPermissionAction.ADD]: modelConfig?.addPermission,
+      [AirPermissionAction.DELETE]: modelConfig?.deletePermission,
+      [AirPermissionAction.EDIT]: modelConfig?.editPermission,
+      [AirPermissionAction.DETAIL]: modelConfig?.detailPermission,
+      [AirPermissionAction.ADD_CHILD]: modelConfig?.addChildPermission,
+      [AirPermissionAction.EXPORT]: modelConfig?.exportPermission,
+      [AirPermissionAction.IMPORT]: modelConfig?.importPermission,
+      [AirPermissionAction.DISABLE]: modelConfig?.disablePermission,
+      [AirPermissionAction.ENABLE]: modelConfig?.enablePermission,
     }
-    if (AirConfig.autoPermission) {
-      // 自动处理权限
-      if (!modelConfig.permissionPrefix) {
-        // 没有配置前缀 从类中获取权限前缀
-        const entityName = EntityClass.name.replace('Entity', AirConstant.STRING_EMPTY).toString()
-        modelConfig.permissionPrefix = entityName.slice(0, 1) + entityName.slice(1)
-      }
+
+    const keys = Object.keys(actionRecord)
+    if (keys.includes(action)) {
+      permission = actionRecord[action as AirPermissionAction]
     }
     else {
-      // 如不自动配置权限, 则将权限前缀清空
-      modelConfig.permissionPrefix = AirConstant.STRING_EMPTY
+      permission = action
     }
-    const permissionPrefix = modelConfig.permissionPrefix + AirConstant.STRING_UNDERLINE
-
-    switch (action) {
-      case AirPermissionAction.ADD:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.addPermission, action)
-      case AirPermissionAction.DELETE:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.deletePermission, action)
-      case AirPermissionAction.EDIT:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.editPermission, action)
-      case AirPermissionAction.DETAIL:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.detailPermission, action)
-      case AirPermissionAction.ADD_CHILD:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.addChildPermission, action)
-      case AirPermissionAction.EXPORT:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.exportPermission, action)
-      case AirPermissionAction.IMPORT:
-        return permissionPrefix + this.getAutoPermissionFlag(modelConfig.importPermission, action)
-      default:
+    if (permission === '') {
+      return ''
     }
-    return AirConstant.STRING_EMPTY
+    if (permission === undefined) {
+      permission = action
+    }
+    let prefix: string | undefined = modelConfig?.permissionPrefix
+    if (prefix === '') {
+      return permission
+    }
+    if (prefix === undefined) {
+      if (!AirConfig.autoPermission) {
+        return permission
+      }
+      const entityName = EntityClass.name.replace('Entity', '')
+      prefix = entityName.slice(0, 1) + entityName.slice(1)
+    }
+    return `${prefix}_${permission}`
   }
 
   /**
@@ -97,18 +109,5 @@ export class AirPermission {
    */
   static has(permission: string): boolean {
     return this.permissionList.includes(permission.toLowerCase())
-  }
-
-  /**
-   * ### 根据配置获取权限后缀
-   *
-   * - `AirConfig.autoPermission=false` 只取 `EntityConfig` 配置的权限, 取不到则认为不校验权限
-   * - `AirConfig.autoPermission=true`  取 `EntityConfig` 配置的权限, 取不到则按 `action` 自动取
-   */
-  private static getAutoPermissionFlag(permission: string | undefined, action: AirPermissionAction) {
-    if (AirConfig.autoPermission) {
-      return permission || action
-    }
-    return permission || AirConstant.STRING_EMPTY
   }
 }

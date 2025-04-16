@@ -44,16 +44,20 @@
     "vue": "^3.5.13"
   },
   "dependencies": {
-    "@airpower/core": "^1.0.2",
+    "@airpower/core": "^1.0.3",
+    "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.8.4",
     "element-plus": "^2.9.7",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-clipboard3": "^2.0.0",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.11.0",
     "@types/node": "^22.13.14",
     "@vitejs/plugin-vue": "^5.2.3",
     "eslint": "^9.23.0",
+    "sass-embedded": "^1.86.3",
     "typescript": "^5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^4.5.3"

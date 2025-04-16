@@ -29,17 +29,17 @@ export function Table(config: ITableFieldConfig = {}) {
  * @param key 属性名
  */
 export function getTableConfig(target: DecoratorTarget, key: string): ITableFieldConfig | null {
-  const formConfig: ITableFieldConfig | null = DecoratorUtil.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
-  if (!formConfig) {
+  const tableConfig: ITableFieldConfig | null = DecoratorUtil.getFieldConfig(target, key, FIELD_CONFIG_KEY, true)
+  if (!tableConfig) {
     return null
   }
-  if (!formConfig.enums) {
+  if (!tableConfig.enums) {
     const props = getFieldConfig(target, key)
     if (props && props.enums) {
-      formConfig.enums = props.enums
+      tableConfig.enums = props.enums
     }
   }
-  return formConfig
+  return tableConfig
 }
 
 /**

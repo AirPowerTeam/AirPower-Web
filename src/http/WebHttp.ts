@@ -1,19 +1,24 @@
 // noinspection Annotator
 import type { IJson } from '@airpower/core'
 import type { AxiosRequestConfig } from 'axios'
-import { AbstractHttp, HttpResponse, HttpStatus } from '@airpower/core'
+import { AbstractHttp, HttpResponse, HttpStatus, Model } from '@airpower/core'
 import axios from 'axios'
 import { ref } from 'vue'
+import { Table } from '../decorator'
 import { WebAccessTokenUtil } from '../util'
 
 /**
  * # 网络请求类
  * @author Hamm.cn
  */
+@Model({
+  label: 'HTTP',
+})
 export class WebHttp extends AbstractHttp {
   /**
    * ### 加载状态
    */
+  @Table()
   loading = ref(false)
 
   protected async request(body?: unknown): Promise<HttpResponse> {

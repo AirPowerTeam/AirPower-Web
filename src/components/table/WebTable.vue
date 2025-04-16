@@ -1,11 +1,11 @@
 <script generic="E extends Entity" lang="ts" setup>
 import type { ClassConstructor, Entity } from '@airpower/core'
 import type { PropType } from 'vue'
-import type { ITableFieldConfig } from '../decorator'
+import type { ITableFieldConfig } from '../../decorator'
 import { ClassTransformer } from '@airpower/core'
 import { ElTable, ElTableColumn } from 'element-plus'
 import { computed } from 'vue'
-import { getTableConfigList } from '../decorator'
+import { getTableConfigList } from '../../decorator'
 
 const props = defineProps({
   /**

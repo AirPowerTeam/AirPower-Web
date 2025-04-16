@@ -4,6 +4,16 @@
 
 # 版本发布日志
 
+## 3.2.4
+
+### 🐞 Bug fixes:
+
+- refactor(i18n): 重构国际化模块并优化使用流程
+- refactor(permission): 重构权限处理逻辑
+- refactor(file): 移除 AirConfig 中的 fileEntityClass 配置项
+
+## 3.2.3
+
 ### 🎉 Features:
 
 - feat(Table): 添加表格边框线配置

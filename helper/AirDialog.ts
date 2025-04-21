@@ -1,10 +1,10 @@
-import type { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import type { App, Component } from 'vue'
 import type { AirEntity } from '../base/AirEntity'
 import type { IFile } from '../interface/IFile'
 import type { IJson } from '../interface/IJson'
 import type { IUploadProps } from '../interface/props/IUploadProps'
 import type { AirExportModel } from '../model/AirExportModel'
+import type { AirFileEntity } from '../model/entity/AirFileEntity'
 import * as Icons from '@element-plus/icons-vue'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
@@ -156,8 +156,8 @@ export class AirDialog {
    */
   static async selectList<E extends AirEntity>(
     view: Component,
-    selectList: E[] = [],
-    param: E | undefined = undefined,
+        selectList: E[] = [],
+        param: E | undefined = undefined,
   ): Promise<E[]> {
     return this.build(view, {
       selectList,

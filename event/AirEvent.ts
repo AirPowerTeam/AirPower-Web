@@ -3,7 +3,7 @@ import type { AirAny } from '../type/AirType'
 import type { AirEventType } from './AirEventType'
 
 /**
- * # 事件
+ * # 监听事件
  * @author Hamm.cn
  */
 class AirEvent {

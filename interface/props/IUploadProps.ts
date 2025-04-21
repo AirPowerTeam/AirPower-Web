@@ -1,4 +1,4 @@
-import type { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
+import type { AirFileEntity } from '../../model/entity/AirFileEntity'
 import type { ClassConstructor } from '../../type/AirType'
 import type { IFile } from '../IFile'
 import type { IJson } from '../IJson'

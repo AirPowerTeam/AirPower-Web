@@ -6,7 +6,6 @@ import type { IFile } from '../interface/IFile'
 import type { IJson } from '../interface/IJson'
 import type { AirRequest } from '../model/AirRequest'
 import type { ClassConstructor } from '../type/AirType'
-import { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import { ElOption } from 'element-plus'
 import { computed, ref } from 'vue'
 import { AirEntity } from '../base/AirEntity'
@@ -24,6 +23,7 @@ import { AirI18n } from '../helper/AirI18n'
 import { AirPermission } from '../helper/AirPermission'
 import { AirExportModel } from '../model/AirExportModel'
 import { AirRequestPage } from '../model/AirRequestPage'
+import { AirFileEntity } from '../model/entity/AirFileEntity'
 
 const props = defineProps({
   /**

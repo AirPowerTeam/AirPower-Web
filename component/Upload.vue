@@ -3,7 +3,6 @@ import type { PropType } from 'vue'
 import type { IFile } from '../interface/IFile'
 import type { IJson } from '../interface/IJson'
 import type { ClassConstructor } from '../type/AirType'
-import { AirFileEntity } from '@airpower/model/entity/AirFileEntity'
 import { computed, ref } from 'vue'
 import { ADialog } from '.'
 import { AirConfig } from '../config/AirConfig'
@@ -11,6 +10,7 @@ import { AirNotification } from '../feedback/AirNotification'
 import { AirClassTransformer } from '../helper/AirClassTransformer'
 import { AirFile } from '../helper/AirFile'
 import { AirI18n } from '../helper/AirI18n'
+import { AirFileEntity } from '../model/entity/AirFileEntity'
 
 const props = defineProps({
   /**

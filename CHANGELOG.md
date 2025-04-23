@@ -4,6 +4,12 @@
 
 # 版本发布日志
 
+## 3.2.5
+
+### 🐞 Bug fixes:
+
+- refactor(import): 更新 AirFileEntity 导入路径
+
 ## 3.2.4
 
 ### 🐞 Bug fixes:

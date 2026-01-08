@@ -179,6 +179,7 @@ function filterNode(value: any, node: any): boolean {
         <template #icon>
           <slot name="icon" />
         </template>
+        <slot name="beforeSearch" />
         <div
           v-if="searchable"
           class="search-box"
@@ -189,6 +190,7 @@ function filterNode(value: any, node: any): boolean {
             clearable
           />
         </div>
+        <slot name="afterSearch" />
         <ElTree
           ref="treeRef"
           v-loading="isTreeLoading"
@@ -202,6 +204,7 @@ function filterNode(value: any, node: any): boolean {
           node-key="id"
           @node-click="treeSelectChanged"
         />
+        <slot name="afterTree" />
       </APanel>
       <div
         v-if="collapse"

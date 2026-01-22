@@ -45,7 +45,7 @@ const props = defineProps({
  * ### 💰显示金额
  */
 const showMoney = computed(() => {
-  const precision = 10 ** props.precision
+  const precision = 1000000
   let number = props.money * precision
 
   if (props.direction === 'up') {

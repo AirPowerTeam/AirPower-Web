@@ -1,8 +1,8 @@
 {
   "name": "@airpower/web",
   "type": "module",
-  "version": "2.3.0",
-  "description": "AirPower-Web",
+  "version": "2.5.0",
+  "description": "AirPower-Web, 一个基于 Vue3 Element Plus TypeScript 的快速开发脚手架。",
   "author": {
     "name": "Hamm",
     "email": "admin@hamm.cn",
@@ -39,10 +39,10 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@airpower/enum": "^2.0.0",
-    "@airpower/i18n": "^1.7.0",
-    "@airpower/transformer": "^2.1.0",
-    "@airpower/util": "^2.0.0",
+    "@airpower/enum": "^2.5.0",
+    "@airpower/i18n": "^2.5.0",
+    "@airpower/transformer": "^2.5.0",
+    "@airpower/util": "^2.5.0",
     "@element-plus/icons-vue": "^2.3.2",
     "axios": "1.13.2",
     "element-plus": "^2.12.0",

@@ -1,7 +1,7 @@
 {
   "name": "@airpower/web",
   "type": "module",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "AirPower-Web, 一个基于 Vue3 Element Plus TypeScript 的快速开发脚手架。",
   "author": {
     "name": "Hamm",

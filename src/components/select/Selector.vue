@@ -208,7 +208,7 @@ async function onAdd() {
   <ADialog
     :disable-confirm="disableConfirm"
     :height="height || '70%'"
-    :hide-footer="!props.props.isMultiple"
+    :hide-buttons="!props.props.isMultiple"
     :loading="isLoading"
     :title="dialogTitle"
     :width="width || '70%'"

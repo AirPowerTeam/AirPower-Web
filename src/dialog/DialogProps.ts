@@ -1,5 +1,6 @@
 import type { PropType } from 'vue'
 import type { RootEntity } from '../model/RootEntity'
+import { RootModel } from '../model/RootModel'
 
 /**
  * ### 弹窗的配置
@@ -51,6 +52,10 @@ export class DialogProps {
    * @param value `可选` 默认参数
    */
   static withParam<P>(value: P | null = null) {
+    // 如果 value 是 RootModel 的之类 调用RootModel的copy方法
+    if (value instanceof RootModel) {
+      value = value.copy()
+    }
     return Object.assign(this.create(), {
       /**
        * ### 父窗体弹出当前窗体时传入的参数

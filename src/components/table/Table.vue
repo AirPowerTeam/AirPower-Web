@@ -847,7 +847,7 @@ function getPayloadArray(scope: IJson, config: ITableColumn<E>): Array<RootEntit
   return value as Array<RootEntity & IPayload>
 }
 
-function tableRowClassName({ row}: { row: E, rowIndex: number }) {
+function tableRowClassName({ row }: { row: E, rowIndex: number }) {
   if (props.disableRow && props.disableRow(row)) {
     return 'disable-row'
   }

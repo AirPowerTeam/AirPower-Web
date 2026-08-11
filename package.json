@@ -1,7 +1,7 @@
 {
   "name": "@airpower/web",
   "type": "module",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "AirPower-Web, 一个基于 Vue3 Element Plus TypeScript 的快速开发脚手架。",
   "author": {
     "name": "Hamm",
@@ -37,29 +37,29 @@
     "lint": "eslint src --ext .ts",
     "preview": "vite preview"
   },
-  "peerDependencies": {},
   "dependencies": {
-    "@airpower/enum": "^2.9.0",
-    "@airpower/i18n": "^2.9.0",
-    "@airpower/transformer": "^2.9.0",
-    "@airpower/util": "^2.9.0",
+    "@airpower/enum": "^4.0.0",
+    "@airpower/i18n": "^4.0.0",
+    "@airpower/transformer": "^4.0.0",
+    "@airpower/util": "^4.0.0",
     "@element-plus/icons-vue": "^2.3.2",
-    "axios": "1.13.2",
-    "element-plus": "^2.12.0",
-    "qrcode.vue": "^3.6.0",
-    "vue": "^3.5.25",
+    "axios": "1.18.0",
+    "element-plus": "^2.14.4",
+    "qrcode.vue": "^3.10.0",
+    "vue": "^3.5.41",
     "vue-clipboard3": "^2.0.0",
-    "vue-router": "^4.6.4"
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.7.1",
-    "@types/node": "^25.0.2",
+    "@antfu/eslint-config": "^9.3.0",
+    "@types/node": "^26.2.0",
     "@vitejs/plugin-vue": "^6.0.3",
-    "eslint": "^9.39.2",
-    "sass-embedded": "^1.93.3",
-    "typescript": "^5.9.3",
-    "vite": "7.3.0",
-    "vite-plugin-dts": "^4.5.4"
+    "@vue/language-core": "^3.3.9",
+    "eslint": "^10.8.1",
+    "sass-embedded": "^1.100.0",
+    "typescript": "^6.0.3",
+    "vite": "8.0.16",
+    "vite-plugin-dts": "^5.0.3"
   },
   "publishConfig": {
     "access": "public"

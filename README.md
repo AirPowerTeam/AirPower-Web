@@ -1,13 +1,13 @@
 <p align="center">
-  <img width="300" src="assets/airpower-bg.svg"/>
+  <img width="300" src="assets/airpower-bg.svg" alt=""/>
 </p>
 
 <p align="center">
 <a href="https://www.npmjs.com/@airpower/web">
-<img src="https://img.shields.io/npm/v/@airpower/web"/>
+<img src="https://img.shields.io/npm/v/@airpower/web" alt=""/>
 </a>
 <a href="https://www.npmjs.com/@airpower/web">
-<img src="https://img.shields.io/npm/dm/@airpower/web"/>
+<img src="https://img.shields.io/npm/dm/@airpower/web" alt=""/>
 </a>
 </p>
 

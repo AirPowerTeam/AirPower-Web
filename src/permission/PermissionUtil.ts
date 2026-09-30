@@ -103,6 +103,6 @@ export class PermissionUtil {
    * @param permission 权限标识
    */
   static has(permission: string): boolean {
-    return this.permissionList.includes(permission)
+    return this.permissionList.map(item => item.toLowerCase()).includes(permission.toLowerCase())
   }
 }

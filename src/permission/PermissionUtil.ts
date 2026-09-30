@@ -72,7 +72,7 @@ export class PermissionUtil {
       const entityName: string = EntityClass.name.replace('Entity', '')
       prefix = entityName.slice(0, 1) + entityName.slice(1)
     }
-    return `${WebConfig.permissionPrefix}${prefix}_${permission}`
+    return `${WebConfig.permissionPrefix}${prefix}:${permission}`
   }
 
   /**

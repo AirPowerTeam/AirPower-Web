@@ -63,16 +63,16 @@ export class PermissionUtil {
     }
     let prefix: string | undefined = modelConfig?.permissionPrefix
     if (prefix === '') {
-      return permission
+      return WebConfig.permissionPrefix + permission
     }
     if (prefix === undefined) {
       if (!WebConfig.autoPermissionPrefix) {
-        return permission
+        return WebConfig.permissionPrefix + permission
       }
       const entityName: string = EntityClass.name.replace('Entity', '')
       prefix = entityName.slice(0, 1) + entityName.slice(1)
     }
-    return `${prefix}_${permission}`
+    return `${WebConfig.permissionPrefix}${prefix}_${permission}`
   }
 
   /**

@@ -172,6 +172,11 @@ export class WebConfig {
   }
 
   /**
+   * ### 权限前缀
+   */
+  static permissionPrefix = ''
+
+  /**
    * ### 获取身份令牌
    */
   static getAccessToken(): string {
